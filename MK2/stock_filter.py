@@ -372,8 +372,8 @@ def print_list_from_results(payload: Optional[dict]) -> None:
         dy = it["div_yield"]
         mc = it["market_cap"]
         print(
-            f"{t:8s}  price={price:>10.2f}  chg={chg:>9.2f}%"
-            f"  div={(dy*100):>7.2f}%  cap={(mc/1e9):>8.2f}B"
+            f"{t:8s}  price={price:>10.2f} chg={chg:>9.2f}%"
+            f"div={(dy*100):>7.2f}% cap={(mc/1e9):>8.2f}B"
         )
     created = payload.get("created_at")
     if created:
@@ -467,8 +467,9 @@ def plot_ticker(conn: sqlite3.Connection, ticker: str) -> None:
         print("로컬 가격 데이터가 없습니다.")
         return
 
-    x = [d for d, _ in data]
+    x = [str(d) for d, _ in data]
     y = [float(c) for _, c in data if c is not None]
+    plt.plot(x, y)
 
     plt.clear_figure()
     plt.title(f"{t} - Daily Close (18mo cached)")
